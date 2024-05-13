@@ -1,0 +1,73 @@
+//Data Pipeline
+pipeline  TreesDataPipeline{
+
+    TreeCSVExtractor -> TreeDataFileInterpreter;
+    TreeDataFileInterpreter
+      
+	-> TreeDataCSVInterpreter 
+        -> TreeDataColumnDelete
+	-> TreeDataTableInterpreter
+	-> TreeDataExport;
+
+    //Http Data Fetching
+    block TreeCSVExtractor oftype HttpExtractor {
+		url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
+	}
+
+    block TreeDataFileInterpreter oftype TextFileInterpreter { }
+   
+   //loading the data
+    block TreeDataCSVInterpreter oftype CSVInterpreter {
+	delimiter : ";" ;
+	}
+
+   //Drop the column named "baumart_deutsch"
+    block TreeDataColumnDelete oftype ColumnDeleter {
+        delete: [column E];
+	}
+
+  //Creating the table  
+    block TreeDataTableInterpreter oftype TableInterpreter {
+		header: true;
+		columns: [
+			"lfd_nr" oftype integer,
+			"stadtteil" oftype stadtteil,
+			"standort" oftype text,
+			"baumart_botanisch" oftype text,
+			"baumart_deutsch" oftype text,
+			"id" oftype coordinates,
+			"baumfamilie" oftype text	
+		];
+	}
+
+
+//We are only interested in Furth, Filtering stadtteil column starting with "Furth-"
+
+valuetype stadtteil oftype text {
+    constraints: [
+        OnlyFurth,
+    ];
+}
+constraint OnlyFurth on text:
+    value matches /^Furth-/;
+
+	
+//Geopoints Validation
+valuetype coordinates oftype text {
+    constraints: [
+        coord,
+    	];
+}
+constraint coord oftype RegexConstraint{
+	regex : /^\d{1,3}\.\d+, \d{1,3}\.\d+$/;
+	}
+   
+
+  // Write data into a SQLite database called “trees.sqlite”, in the table “trees”
+    block TreeDataExport oftype SQLiteLoader {
+	table: "trees";
+	file: "./trees.sqlite";
+	}
+
+}
+
