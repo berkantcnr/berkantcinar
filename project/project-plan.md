@@ -2,16 +2,16 @@
 
 ## Title
 <!-- Give your project a short title. -->
-Urbanization and Economic Development: Examining the Connection Between Economic Performance and Urban Growth
+Correlation Between World Population Growth and Economic Development
 
 ## Main Question
 
 <!-- Think about one main question you want to answer based on the data. -->
-1. Is there a direct connection between urban population growth and economic development?
+1. Is there a direct connection between world population growth and economic development?
 
 ## Description
 Population and economic development are critical for nations growth and sustainability. 
-The goal of this study is to look into the connection between rising urban populations and nations' economic performance. Our goal is to find trends and connections that provide insight into the ways in which economic conditions are influenced by urban growth. 
+The goal of this study is to look into the connection between rising populations and nations' economic performance. Our goal is to find trends and connections that provide insight into the ways in which economic conditions are influenced by population growth. 
 
 ## Datasources
 
@@ -21,13 +21,13 @@ The goal of this study is to look into the connection between rising urban popul
 * Metadata URL: [https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset]
 * Data Type: CSV
 
-Description of the Datasource: This dataset offers detailed information on population trends, including rates of urbanization, for all nations in the world. This dataset is really important for comprehending the size and rate of urban population growth in various countries.
+Description of the Datasource: This dataset offers detailed information on population trends, including rates of urbanization, for all nations in the world. This dataset is really important for comprehending the size and rate of population growth in various countries.
 
-### Datasource1: World Development Indicators From World Bank Open Data
-* Metadata URL: [https://www.kaggle.com/datasets/theworldbank/world-development-indicators]
+### Datasource1: World Economic Outlook - IMF
+* Metadata URL: [(https://www.kaggle.com/datasets/joebeachcapital/world-economic-data)]
 * Data Type: CSV
 
-Description of the Datasource: This dataset offers detailed information on economic indicator, including Gross Domestic Product (GDP) data for countries around the world. This dataset is really important for for assessing different countries' economic performance and levels of development.
+Description of the Datasource: This dataset offers detailed information on economic indicator such as GDP, GDP per capita, inflation rates, and more. It is critical for assessing the economic performance and development levels of different countries.
 
 ## Work Packages
 
