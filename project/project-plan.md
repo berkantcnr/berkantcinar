@@ -18,7 +18,7 @@ The goal of this study is to look into the connection between rising urban popul
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
 ### Datasource1: World Population Dataset
-* Metadata URL: [https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset)](https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset]
+* Metadata URL: [https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset]
 * Data Type: CSV
 
 Description of the Datasource: This dataset offers detailed information on population trends, including rates of urbanization, for all nations in the world. This dataset is really important for comprehending the size and rate of urban population growth in various countries.
