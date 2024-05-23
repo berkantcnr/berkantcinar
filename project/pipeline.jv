@@ -1,0 +1,70 @@
+pipeline WorldPopulationEconomicPipeline {
+    PopulationExtractor -> PopulationTextFileInterpreter;
+    EconomicExtractor -> EconomicTextFileInterpreter;
+
+    PopulationTextFileInterpreter
+        -> PopulationCSVInterpreter
+        -> PopulationTableInterpreter
+        -> PopulationLoader;
+
+    EconomicTextFileInterpreter
+        -> EconomicCSVInterpreter
+        -> EconomicTableInterpreter
+        -> EconomicLoader;
+
+    // Extract Population Data from URL
+    block PopulationExtractor oftype HttpExtractor {
+        url: "https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset/download";
+    }
+
+    // Extract Economic Data from URL
+    block EconomicExtractor oftype HttpExtractor {
+        url: "https://www.kaggle.com/datasets/joebeachcapital/world-economic-data/download";
+    }
+
+
+    block PopulationTextFileInterpreter oftype TextFileInterpreter { }
+    block EconomicTextFileInterpreter oftype TextFileInterpreter { }
+
+    block PopulationCSVInterpreter oftype CSVInterpreter {
+        delimiter: ",";
+    }
+
+    block EconomicCSVInterpreter oftype CSVInterpreter {
+        delimiter: ",";
+    }
+
+    // Population Data as Table
+    block PopulationTableInterpreter oftype TableInterpreter {
+        header: true,
+        columns: [
+            "Country" oftype text,
+            "Year" oftype integer,
+            "Population" oftype integer
+        ];
+    }
+
+    // Economic Data as Table
+    block EconomicTableInterpreter oftype TableInterpreter {
+        header: true,
+        columns: [
+            "Country" oftype text,
+            "Year" oftype integer,
+            "GDP" oftype decimal,
+            "GDP_Per_Capita" oftype decimal,
+            "Inflation_Rate" oftype decimal
+        ];
+    }
+
+    // Load Population Table into SQLite Database
+    block PopulationLoader oftype SQLiteLoader {
+        table: "population";
+        file: "../data/world_population_economic.db";
+    }
+
+    // Load Economic Table into SQLite Database
+    block EconomicLoader oftype SQLiteLoader {
+        table: "economic";
+        file: "../data/world_population_economic.db";
+    }
+}
