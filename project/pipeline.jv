@@ -5,11 +5,13 @@ pipeline WorldPopulationAirPollutionPipeline {
     PopulationTextFileInterpreter
         -> PopulationCSVInterpreter
         -> PopulationTableInterpreter
+        -> PopulationFilterLatestYear
         -> PopulationLoader;
 
     AirPollutionTextFileInterpreter
         -> AirPollutionCSVInterpreter
         -> AirPollutionTableInterpreter
+        -> AirPollutionAggregateByCountry
         -> AirPollutionLoader;
 
     // Extract Population Data from URL
@@ -33,7 +35,7 @@ pipeline WorldPopulationAirPollutionPipeline {
         delimiter: ",";
     }
 
-    // Population Data as Table
+    // Population Data Table Format
     block PopulationTableInterpreter oftype TableInterpreter {
         header: true,
         columns: [
@@ -43,7 +45,7 @@ pipeline WorldPopulationAirPollutionPipeline {
         ];
     }
 
-    // Air Pollution Data as Table
+    // Air Pollution Data Table Format
     block AirPollutionTableInterpreter oftype TableInterpreter {
         header: true,
         columns: [
@@ -57,15 +59,30 @@ pipeline WorldPopulationAirPollutionPipeline {
         ];
     }
 
-    // Load Population Table into SQLite Database
-    block PopulationLoader oftype SQLiteLoader {
-        table: "population";
-        file: "../data/world_population_air_pollution.db";
+    // Getting only latest data. 
+    block PopulationFilterLatestYear oftype RowFilter {
+        condition: "Year == 2022";
     }
 
-    // Load Air Pollution Table into SQLite Database
+    // Some countries have multiple data. I get the mean of the countries values because I only need one value for each country to analyze. 
+    block AirPollutionAggregateByCountry oftype Aggregator {
+        group_by: "Country";
+        aggregations: {
+            "AQI_Value": mean,
+            "CO_AQI_Value": mean,
+            "Ozone_AQI_Value": mean,
+            "NO2_AQI_Value": mean,
+            "PM2.5_AQI_Value": mean
+        };
+    }
+   
+    block PopulationLoader oftype SQLiteLoader {
+        table: "population";
+        file: "data/world_population_air_pollution.db";
+    }
+
     block AirPollutionLoader oftype SQLiteLoader {
         table: "air_pollution";
-        file: "../data/world_population_air_pollution.db";
+        file: "data/world_population_air_pollution.db";
     }
 }
