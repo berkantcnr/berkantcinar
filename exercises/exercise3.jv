@@ -29,7 +29,7 @@ pipeline goodstransportpipeline {
     }
 
     block GoodsTextFileInterpreter oftype TextFileInterpreter {
-        encoding: 'latin1';
+        encoding: 'latin3';
     }
 
     block GoodsCSVInterpreter oftype CSVInterpreter {
