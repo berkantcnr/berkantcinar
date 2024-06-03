@@ -1,8 +1,8 @@
-valuetype onlypositive oftype integer {
-    constraints: [rangeconstraint];
+valuetype posvalues oftype integer {
+    constraints: [rangeconst];
 }
 
-constraint rangeconstraint oftype RangeConstraint {
+constraint rangeconst oftype RangeConstraint {
     lowerBound: 0;
     lowerBoundInclusive: true;
 }
@@ -37,21 +37,21 @@ pipeline goodstransportpipeline {
         enclosingEscape: '"'; 
     }
 
-    block RowDeleter oftype RowDeleter {
+    block RowClean oftype RowDeleter {
         delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 7, row 8, row 41338, row 41339];
     }
 
-    block HeaderSequenceWriter1 oftype CellWriter {
+    block Header1 oftype CellWriter {
         at: range A1:E1;
         write: ['year', 'month', 'goods_id', 'goods_name', 'goods_source'];
     }
 
-    block HeaderSequenceWriter2 oftype CellWriter {
+    block Header2 oftype CellWriter {
         at: range AT1:AU1;
         write: ['abroad', 'total'];
     }
 
-    block RowFilter oftype RowFilter {
+    block RowFilters oftype RowFilter {
         rules: [
             'year' is not null,
             'month' is not null,
@@ -71,13 +71,13 @@ pipeline goodstransportpipeline {
     block GoodsTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            'year' oftype onlypositive,
+            'year' oftype posvalues,
             'month' oftype regex_1,
             'goods_id' oftype regex_2,
             'goods_name' oftype text,
             'goods_source' oftype text,
-            'abroad' oftype onlypositive,
-            'total' oftype onlypositive,
+            'abroad' oftype posvalues,
+            'total' oftype posvalues,
         ];
     }
 
@@ -89,10 +89,10 @@ pipeline goodstransportpipeline {
     DataExtractor
     -> GoodsTextFileInterpreter
     -> GoodsCSVInterpreter
-    -> RowDeleter
-    -> HeaderSequenceWriter1
-    -> HeaderSequenceWriter2
-    -> RowFilter
+    -> RowClean
+    -> Header1
+    -> Header2
+    -> RowFilters
     -> GoodsTableInterpreter
     -> DatabaseLoader;
 }
