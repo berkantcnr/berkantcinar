@@ -2,16 +2,15 @@
 
 ## Title
 <!-- Give your project a short title. -->
-Correlation Between World Population Growth and Economic Development
+Correlation Between World Population and Air Pollution
 
 ## Main Question
 
 <!-- Think about one main question you want to answer based on the data. -->
-1. Is there a direct connection between world population growth and economic development?
+1. Is there a direct connection between world population size and air pollution levels?
 
 ## Description
-Population and economic development are critical for nations growth and sustainability. 
-The goal of this study is to look into the connection between rising populations and nations' economic performance. Our goal is to find trends and connections that provide insight into the ways in which economic conditions are influenced by population growth. 
+Population and air pollution are critical issues for global sustainability and public health. The goal of this study is to investigate the relationship between population size and air pollution levels across different countries. Our aim is to identify trends and correlations that provide insights into how population size impacts air quality, helping to inform policies for sustainable development and pollution control.
 
 ## Datasources
 
@@ -23,11 +22,11 @@ The goal of this study is to look into the connection between rising populations
 
 Description of the Datasource: This dataset offers detailed information on population trends, including rates of urbanization, for all nations in the world. This dataset is really important for comprehending the size and rate of population growth in various countries.
 
-### Datasource1: World Economic Outlook - IMF
-* Metadata URL: [(https://www.kaggle.com/datasets/joebeachcapital/world-economic-data)]
+### Datasource2: World Economic Outlook - IMF
+* Metadata URL: [https://www.kaggle.com/datasets/hasibalmuzdadid/global-air-pollution-dataset]
 * Data Type: CSV
 
-Description of the Datasource: This dataset offers detailed information on economic indicator such as GDP, GDP per capita, inflation rates, and more. It is critical for assessing the economic performance and development levels of different countries.
+Description of the Datasource: This dataset provides comprehensive data on air pollution levels, including AQI values and concentrations of various pollutants for many locations around the world. It is essential for assessing air quality and understanding the impact of different pollution sources.
 
 ## Work Packages
 
