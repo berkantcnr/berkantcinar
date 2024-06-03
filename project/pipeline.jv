@@ -11,7 +11,7 @@ pipeline WorldPopulationAirPollutionPipeline {
     AirPollutionTextFileInterpreter
         -> AirPollutionCSVInterpreter
         -> AirPollutionTableInterpreter
-        -> AirPollutionAggregateByCountry
+        -> AirPollutionMeanByCountry
         -> AirPollutionLoader;
 
     // Extract Population Data from URL
@@ -65,7 +65,7 @@ pipeline WorldPopulationAirPollutionPipeline {
     }
 
     // Some countries have multiple data. I get the mean of the countries values because I only need one value for each country to analyze. 
-    block AirPollutionAggregateByCountry oftype Aggregator {
+    block AirPollutionMeanByCountry oftype Aggregator {
         group_by: "Country";
         aggregations: {
             "AQI_Value": mean,
