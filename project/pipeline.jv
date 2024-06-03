@@ -1,36 +1,35 @@
-pipeline WorldPopulationEconomicPipeline {
+pipeline WorldPopulationAirPollutionPipeline {
     PopulationExtractor -> PopulationTextFileInterpreter;
-    EconomicExtractor -> EconomicTextFileInterpreter;
+    AirPollutionExtractor -> AirPollutionTextFileInterpreter;
 
     PopulationTextFileInterpreter
         -> PopulationCSVInterpreter
         -> PopulationTableInterpreter
         -> PopulationLoader;
 
-    EconomicTextFileInterpreter
-        -> EconomicCSVInterpreter
-        -> EconomicTableInterpreter
-        -> EconomicLoader;
+    AirPollutionTextFileInterpreter
+        -> AirPollutionCSVInterpreter
+        -> AirPollutionTableInterpreter
+        -> AirPollutionLoader;
 
     // Extract Population Data from URL
     block PopulationExtractor oftype HttpExtractor {
         url: "https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset/download";
     }
 
-    // Extract Economic Data from URL
-    block EconomicExtractor oftype HttpExtractor {
-        url: "https://www.kaggle.com/datasets/joebeachcapital/world-economic-data/download";
+    // Extract Air Pollution Data from URL
+    block AirPollutionExtractor oftype HttpExtractor {
+        url: "https://www.kaggle.com/datasets/hasibalmuzdadid/global-air-pollution-dataset/download";
     }
 
-
     block PopulationTextFileInterpreter oftype TextFileInterpreter { }
-    block EconomicTextFileInterpreter oftype TextFileInterpreter { }
+    block AirPollutionTextFileInterpreter oftype TextFileInterpreter { }
 
     block PopulationCSVInterpreter oftype CSVInterpreter {
         delimiter: ",";
     }
 
-    block EconomicCSVInterpreter oftype CSVInterpreter {
+    block AirPollutionCSVInterpreter oftype CSVInterpreter {
         delimiter: ",";
     }
 
@@ -44,27 +43,29 @@ pipeline WorldPopulationEconomicPipeline {
         ];
     }
 
-    // Economic Data as Table
-    block EconomicTableInterpreter oftype TableInterpreter {
+    // Air Pollution Data as Table
+    block AirPollutionTableInterpreter oftype TableInterpreter {
         header: true,
         columns: [
             "Country" oftype text,
-            "Year" oftype integer,
-            "GDP" oftype decimal,
-            "GDP_Per_Capita" oftype decimal,
-            "Inflation_Rate" oftype decimal
+            "City" oftype text,
+            "AQI_Value" oftype decimal,
+            "CO_AQI_Value" oftype decimal,
+            "Ozone_AQI_Value" oftype decimal,
+            "NO2_AQI_Value" oftype decimal,
+            "PM2.5_AQI_Value" oftype decimal
         ];
     }
 
     // Load Population Table into SQLite Database
     block PopulationLoader oftype SQLiteLoader {
         table: "population";
-        file: "../data/world_population_economic.db";
+        file: "../data/world_population_air_pollution.db";
     }
 
-    // Load Economic Table into SQLite Database
-    block EconomicLoader oftype SQLiteLoader {
-        table: "economic";
-        file: "../data/world_population_economic.db";
+    // Load Air Pollution Table into SQLite Database
+    block AirPollutionLoader oftype SQLiteLoader {
+        table: "air_pollution";
+        file: "../data/world_population_air_pollution.db";
     }
 }
