@@ -22,7 +22,7 @@ Population and air pollution are critical issues for global sustainability and p
 
 Description of the Datasource: This dataset offers detailed information on population trends, including rates of urbanization, for all nations in the world. This dataset is really important for comprehending the size and rate of population growth in various countries.
 
-### Datasource2: World Economic Outlook - IMF
+### Datasource2: Global Air Pollution Dataset
 * Metadata URL: [https://www.kaggle.com/datasets/hasibalmuzdadid/global-air-pollution-dataset]
 * Data Type: CSV
 
