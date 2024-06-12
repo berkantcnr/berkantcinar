@@ -7,7 +7,7 @@ from pipeline import (
     etl_air_pollution, sql_load, main
 )
 
-# Define the expected output files
+# Defined the expected output files
 expected_files = [
     "./data/processed/processed_data.sqlite"
 ]
@@ -49,7 +49,7 @@ def test_sqlite_tables(filepath, tables):
     for table in tables:
         assert table in existing_tables, f"Table {table} not found in {filepath}."
 
-# Test to check the integrity of data in SQLite files
+# Test to check data in SQLite files
 @pytest.mark.parametrize("filepath,tables_columns", expected_columns_types.items())
 def test_data_integrity(filepath, tables_columns):
     print(f"Checking data integrity for file: {filepath}")
