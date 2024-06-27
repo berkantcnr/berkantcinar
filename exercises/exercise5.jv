@@ -1,0 +1,68 @@
+pipeline GTFS {
+
+    // Describe the structure of the pipeline, by connecting blocks via pipes
+    GTFSDataExtractor
+        -> GTFSZipArchiveInterpreter
+        -> GTFSFilePicker
+        -> GTFSTextFileInterpreter
+        -> GTFSCSVInterpreter
+        -> GTFSTableInterpreter
+        -> GTFSDataLoader;
+
+    // Extract the CSV data in a local Zip File
+    block GTFSDataExtractor oftype HttpExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    block GTFSZipArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block GTFSFilePicker oftype FilePicker {
+        path: "/stops.txt";
+    }
+
+    // Interpret the file as a text file
+    block GTFSTextFileInterpreter oftype TextFileInterpreter {}
+
+    // Next, we interpret the text file as a CSV file
+    block GTFSCSVInterpreter oftype CSVInterpreter {
+        enclosing: '"';
+    }
+
+    // Define the valid value for stop_lat and stop_lon, they must be decimal numbers in the range of (-90, 90)
+    valuetype geographic_coordinates oftype decimal {
+        constraints: [valid_coordinates];
+    }
+
+    constraint valid_coordinates oftype RangeConstraint {
+        lowerBound: -90;
+        upperBound: 90;
+    }
+
+    // valid_zone rule 
+    valuetype zone oftype integer {
+        constraints: [valid_zone];
+    }
+
+    constraint valid_zone on integer:
+        value == 1645;
+        
+    // Invalid values dropped automatedly
+    block GTFSTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,
+            "stop_lat" oftype geographic_coordinates,
+            "stop_lon" oftype geographic_coordinates,
+            "zone_id" oftype zone,
+        ];
+    }
+    
+    // Load the table into SQLite
+    block GTFSDataLoader oftype SQLiteLoader {
+        table: "stops";
+        file: "./gtfs.sqlite";
+    }
+}
