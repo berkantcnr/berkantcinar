@@ -24,8 +24,8 @@ Description of the Datasource: This dataset offers detailed information on popul
 Description of the Datasource: This dataset provides comprehensive data on air pollution levels, including AQI values and concentrations of various pollutants for many locations around the world. It is essential for assessing air quality and understanding the impact of different pollution sources.
 
 ## Data Analysis
-- [Data exploration][(https://github.com/berkantcnr/berkantcinar/blob/main/project/data-report.pdf)]
-- [Data report pdf][(https://github.com/berkantcnr/berkantcinar/blob/main/project/analysis_report.pdf)]
+- [Data exploration](https://github.com/berkantcnr/berkantcinar/blob/main/project/data-report.pdf)
+- [Data report pdf](https://github.com/berkantcnr/berkantcinar/blob/main/project/analysis_report.pdf)
 
 ## License
 Correlation Between World Population and Air Pollution Analysis © 2024 by Berkant Çınar is licensed under CC BY 1.0
