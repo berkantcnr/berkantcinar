@@ -5,9 +5,6 @@
 Is there a direct connection between world population size and air pollution levels?
 
 ## Description
-The results can give insight into trends within the waste sector and compare the amount of waste generated and treated to NMVOC emissions which are known to be harmful as they directly impact human health, especially when in higher concentrations in urban areas.
-
-## Description
 Population and air pollution are critical issues for global sustainability and public health. The goal of this study is to investigate the relationship between population size and air pollution levels across different countries. Our aim is to identify trends and correlations that provide insights into how population size impacts air quality, helping to inform policies for sustainable development and pollution control.
 
 ## Datasources
