@@ -28,4 +28,4 @@ Description of the Datasource: This dataset provides comprehensive data on air p
 - [Analysis Report](https://github.com/berkantcnr/berkantcinar/blob/main/project/analysis_report.pdf)
 
 ## License
-Correlation Between World Population and Air Pollution Analysis © 2024 by Berkant Çınar is licensed under CC BY 1.0
+Correlation Between World Population and Air Pollution Analysis © 2024 by Berkant Çınar is licensed under CC0 1.0 Universal
